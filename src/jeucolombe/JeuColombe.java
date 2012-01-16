@@ -22,6 +22,8 @@ public class JeuColombe extends PApplet {
 	private int m_offsetY;
 	private boolean m_enDeplacement;
 	
+	private int m_largeurScore;
+	
 	public JeuColombe() {
 		m_largeur = 800;
 		m_hauteur = 800;
@@ -38,6 +40,7 @@ public class JeuColombe extends PApplet {
 		m_offsetX = 0;
 		m_offsetY = 0;
 		m_enDeplacement = false;
+		m_largeurScore = 50;
 	}
 
 	public void setup() {
@@ -138,17 +141,22 @@ public class JeuColombe extends PApplet {
 		translate(-m_centreX, -m_centreY);
 		
 		// Effacer le score précédent
-		rectMode(CORNER);
-		noStroke();
-		fill(255);
-		rect(0, 0, 60, 60);
-		
-		// Afficher un cadre
-		fill(3, 41, 90, 128);
-		roundedRect(5, 5, 50, 50, 10);
+//		rectMode(CORNER);
+//		noStroke();
+//		fill(255);
+//		rect(0, 0, 60, 60);
 		
 		// Mise à jour du score
 		textFont(m_police, 40);
+		if (textWidth(str(score)) > m_largeurScore - 10) {
+			m_largeurScore = (int) textWidth(str(score)) + 10;
+		}
+		
+		// Afficher un cadre
+		fill(55, 148, 254);
+		roundedRect(5, 5, m_largeurScore, 50, 20);
+		
+		// Afficher le texte
 		fill(0);
 		textAlign(LEFT);
 		text(score, 10, 45);
@@ -175,23 +183,39 @@ public class JeuColombe extends PApplet {
 //		rect(x-hr, y, hr, h);
 //		rect(x, y+h, w, hr);
 //		rect(x+w,y,hr, h);
+//		beginShape();
+//		curveVertex(x+r, y);
+//		
+//		curveVertex(x+r, y);
+//		curveVertex(x+w-r, y);
+//		
+//		curveVertex(x+w, y+r);
+//		curveVertex(x+w, y+h-r);
+//		
+//		curveVertex(x+w-r, y+h);
+//		curveVertex(x+r, y+h);
+//		
+//		curveVertex(x, y+h-r);
+//		curveVertex(x, y+r);
+//
+//		curveVertex(x+r, y);
+//		curveVertex(x+r, y);
+//		endShape();
 		beginShape();
-		curveVertex(x+r, y);
-		
-		curveVertex(x+r, y);
-		curveVertex(x+w-r, y);
-		
-		curveVertex(x+w, y+r);
-		curveVertex(x+w, y+h-r);
-		
-		curveVertex(x+w-r, y+h);
-		curveVertex(x+r, y+h);
-		
-		curveVertex(x, y+h-r);
-		curveVertex(x, y+r);
+		// haut
+		vertex(x+r, y);
+		bezierVertex(x+2*r, y, x+w-2*r, y, x+w-r, y);
+		// droite
+		bezierVertex( x+w, y, x+w, y, x+w, y+r);
+		bezierVertex(x+w, y+2*r, x+w, y+h-2*r, x+w, y+h-r);
+		// bas
+		bezierVertex(x+w, y+h, x+w, y+h, x+w-r, y+h);
+		bezierVertex(x+w-2*r, y+h, x+2*r, y+h, x+r, y+h);
+		// droite
+		bezierVertex(x, y+h, x, y+h, x, y+h-r);
+		bezierVertex(x, y+2*r, x, y+2*r, x, y+r);
 
-		curveVertex(x+r, y);
-		curveVertex(x+r, y);
+		bezierVertex(x, y, x, y, x+r, y);
 		endShape();
 	}
 
