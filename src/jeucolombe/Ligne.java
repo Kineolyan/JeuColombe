@@ -60,7 +60,7 @@ public class Ligne extends util.ProcessingObject {
 	
 	public void effacer() {		
 		m_viewer.strokeWeight(1);
-		m_viewer.stroke(255);
+		m_viewer.stroke(223);
 		m_viewer.line(m_points[0].x(), m_points[0].y(),
 				m_points[4].x(), m_points[4].y());
 		

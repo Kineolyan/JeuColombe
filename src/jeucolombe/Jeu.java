@@ -195,9 +195,28 @@ public class Jeu {
 		ajouterVoisins(p.x()/m_pas, p.y()/m_pas);
 	}
 	
-	public void reset() {
+	public void clear() {
 		m_points.clear();
 		initialiser();
+	}
+	
+	public void reset() {
+		Iterator<Point> iterator = m_points.iterator();
+		Point point = null;
+		
+		while (iterator.hasNext()) {
+			point = iterator.next();
+			if (null!=point) {
+				point.effacer();
+			}
+		}
+
+		m_historique.clear();
+		m_positionHistorique = m_historique.listIterator();
+		m_indexHistorique=0;
+		
+		initialiser();
+		afficher();
 	}
 	
 	public void afficherPoints() {

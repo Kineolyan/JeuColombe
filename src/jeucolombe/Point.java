@@ -4,7 +4,7 @@ import processing.core.PApplet;
 import util.Matrice;
 
 public class Point extends util.ProcessingObject {
-	public enum Etat { ACTIVE, DESACTIVE, ACTIVABLE };
+	public enum Etat { ACTIVE, DESACTIVE, ACTIVABLE, INVISIBLE };
 	private enum Couleur { NOIR, ROUGE, GRIS, BLANC };
 	
 	private int m_positionX;
@@ -55,6 +55,7 @@ public class Point extends util.ProcessingObject {
 			colorer(Couleur.GRIS);
 			break;
 			
+		case INVISIBLE:
 		default:
 			break;
 		}
@@ -68,6 +69,10 @@ public class Point extends util.ProcessingObject {
 	public void desactiver() {
 		m_etat = Etat.DESACTIVE;
 		colorer(Couleur.GRIS);
+	}
+
+	public void effacer() {
+		m_etat = Etat.INVISIBLE;
 	}
 	
 	public void selectionner() {

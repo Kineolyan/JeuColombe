@@ -11,6 +11,7 @@ public class JeuColombe extends PApplet {
 	private int m_pas;
 	private Point m_selection;
 	private boolean m_selectionEnCours;
+	private boolean m_nouvellePartie;
 	
 	private boolean m_navigationHistorique;
 	
@@ -32,6 +33,7 @@ public class JeuColombe extends PApplet {
 		m_pas = (m_largeur < m_hauteur)? m_largeur/m_nbPoints: m_hauteur / m_nbPoints;
 		m_selection = null;
 		m_selectionEnCours = false;
+		m_nouvellePartie = false;
 		m_navigationHistorique = false;
 		m_police = null;
 		
@@ -134,17 +136,23 @@ public class JeuColombe extends PApplet {
 				m_jeu.afficher();
 			}
 		}
+		else if (BACKSPACE==key) {
+			m_nouvellePartie = true;
+			System.out.println("return");
+		}
+		else if (ENTER==keyCode && m_nouvellePartie) {
+			System.out.println("enter");
+			m_jeu.reset();
+		}
+		else {
+			m_nouvellePartie = false;
+			System.out.println("annulé");
+		}
 	}
 	
 	public void afficherScore(int score) {
 		pushMatrix();
 		translate(-m_centreX, -m_centreY);
-		
-		// Effacer le score précédent
-//		rectMode(CORNER);
-//		noStroke();
-//		fill(255);
-//		rect(0, 0, 60, 60);
 		
 		// Mise à jour du score
 		textFont(m_police, 40);
@@ -153,6 +161,7 @@ public class JeuColombe extends PApplet {
 		}
 		
 		// Afficher un cadre
+		noStroke();
 		fill(55, 148, 254);
 		roundedRect(5, 5, m_largeurScore, 50, 20);
 		
@@ -165,42 +174,6 @@ public class JeuColombe extends PApplet {
 	}
 	
 	private void roundedRect(int x, int y, int w, int h, int r) {
-//		noStroke();
-//		rectMode(CORNER);
-//
-//		int  ax, ay, hr;
-//
-//		ax=x+w-1;
-//		ay=y+h-1;
-//		hr = r/2;
-//
-//		rect(x, y, w, h);
-//		arc(x, y, r, r, radians(180), radians(270));
-//		arc(ax, y, r,r, radians(270), radians(360));
-//		arc(x, ay, r,r, radians(90), radians(180));
-//		arc(ax, ay, r,r, radians(0), radians(90));
-//		rect(x, y-hr, w, hr);
-//		rect(x-hr, y, hr, h);
-//		rect(x, y+h, w, hr);
-//		rect(x+w,y,hr, h);
-//		beginShape();
-//		curveVertex(x+r, y);
-//		
-//		curveVertex(x+r, y);
-//		curveVertex(x+w-r, y);
-//		
-//		curveVertex(x+w, y+r);
-//		curveVertex(x+w, y+h-r);
-//		
-//		curveVertex(x+w-r, y+h);
-//		curveVertex(x+r, y+h);
-//		
-//		curveVertex(x, y+h-r);
-//		curveVertex(x, y+r);
-//
-//		curveVertex(x+r, y);
-//		curveVertex(x+r, y);
-//		endShape();
 		beginShape();
 		// haut
 		vertex(x+r, y);
