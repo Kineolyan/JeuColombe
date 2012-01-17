@@ -71,8 +71,10 @@ public class Point extends util.ProcessingObject {
 		colorer(Couleur.GRIS);
 	}
 
-	public void effacer() {
+	public void reset() {
 		m_etat = Etat.INVISIBLE;
+		m_selectionne = false;
+		m_liaisons = new Matrice<Boolean>(3, true);
 	}
 	
 	public void selectionner() {

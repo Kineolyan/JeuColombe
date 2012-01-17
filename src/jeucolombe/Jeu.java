@@ -147,8 +147,14 @@ public class Jeu {
 	}
 	
 	private void ajouterItem(int indexX, int indexY) {
-		if (null==m_points.get(indexX, indexY)) {
-			m_points.set(indexX, indexY, new Point(coordonnee(indexX), coordonnee(indexY), m_viewer));
+		Point point = m_points.get(indexX, indexY);
+		if (null==point) {
+			point = new Point(coordonnee(indexX), coordonnee(indexY), m_viewer);
+			m_points.set(indexX, indexY, point);
+		}
+		
+		if (Point.Etat.ACTIVE!=point.etat()) {
+			point.desactiver();
 		}
 	}
 		
@@ -207,13 +213,14 @@ public class Jeu {
 		while (iterator.hasNext()) {
 			point = iterator.next();
 			if (null!=point) {
-				point.effacer();
+				point.reset();
 			}
 		}
 
 		m_historique.clear();
 		m_positionHistorique = m_historique.listIterator();
 		m_indexHistorique=0;
+		m_score = 0;
 		
 		initialiser();
 		afficher();
@@ -294,7 +301,7 @@ public class Jeu {
 				}
 			}
 			else {
-				System.out.println("point inutilisable");
+				System.out.println("point "+ i +" inutilisable");
 				return false;
 			}
 		}

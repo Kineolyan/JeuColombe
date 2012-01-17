@@ -138,15 +138,13 @@ public class JeuColombe extends PApplet {
 		}
 		else if (BACKSPACE==key) {
 			m_nouvellePartie = true;
-			System.out.println("return");
 		}
 		else if (ENTER==keyCode && m_nouvellePartie) {
-			System.out.println("enter");
+			background(255);
 			m_jeu.reset();
 		}
 		else {
 			m_nouvellePartie = false;
-			System.out.println("annulé");
 		}
 	}
 	
